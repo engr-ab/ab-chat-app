@@ -12,5 +12,5 @@ app.use(express.static(publicPath));
 
 
 app.listen(port,()=>{
-    console.log('server started at port 3000');
+    console.log(`server started at port ${port}`);
 });
