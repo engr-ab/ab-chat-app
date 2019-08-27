@@ -28,20 +28,11 @@ app.use(express.static(publicPath));
 io.on('connection',(socket)=>{ //when connection event occur, do something
     console.log('New user connected');
     
-    socket.emit('newEmail',{
-         from: "engr.ab20@gmail.com",
-         text:"hello new client!",
-         createdAt: Date()
-        });//newEmail end
-
-    socket.emit('newMessage',{from:"Ali", text:'hello ab ', createdAt:Date()});  
-
-    socket.on('createEmail',(email)=>{
-        console.log(email);
-    });//createEmail end
-
+     
     socket.on('createMessage', (message)=>{
-        console.log("\n\n new message from client",message);
+        //send to each client
+        message.createdAt = new Date().getTime();//attach time
+        io.emit('newMessage',message);
     });
 
     socket.on('disconnect', ()=> {
