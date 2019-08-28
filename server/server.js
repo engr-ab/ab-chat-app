@@ -32,8 +32,21 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
     socket.on('createMessage', (message)=>{
         //send to each client
         message.createdAt = new Date().getTime();//attach time
-        io.emit('newMessage',message);
+        // io.emit('newMessage',message);//will send to all connected
+        socket.broadcast.emit('newMessage',message);// broadcast will sent to all except itselt,sender
     });
+
+        socket.broadcast.emit('newMessage',{
+            from:'admin',
+            text:'A new User has joined the chat',
+            createdAt: new Date().getTime()
+        });
+
+        socket.emit('newMessage',{
+            from:'admin',
+            text:'Welcome to chat room',
+            createdAt: new Date().getTime()
+        });
 
     socket.on('disconnect', ()=> {
         console.log('client disconnected');

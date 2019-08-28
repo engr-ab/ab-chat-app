@@ -11,7 +11,6 @@ console.log("message coming is: ", message);
 });
 
 
-
 socket.on('disconnect', function() {
     console.log('disconnected from server');
     
