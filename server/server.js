@@ -4,8 +4,13 @@ const express = require('express');
 const socketIO = require('socket.io');
 //1.integrate socket io in webserver
 
+var messages = require('./utils/messages');
+var {generateMessage} = messages;
+
+
 const publicPath = path.join(__dirname,'../public');
-console.log(publicPath);
+
+
 
 var app = express();//express server
 
@@ -27,26 +32,17 @@ app.use(express.static(publicPath));
 //register an event, io.on allow us for this, special events are registered in io.on() while others are registered in the handler function of io.on('', handler);
 io.on('connection',(socket)=>{ //when connection event occur, do something
     console.log('New user connected');
-    
-     
-    socket.on('createMessage', (message)=>{
-        //send to each client
-        message.createdAt = new Date().getTime();//attach time
-        // io.emit('newMessage',message);//will send to all connected
-        socket.broadcast.emit('newMessage',message);// broadcast will sent to all except itselt,sender
+      
+    socket.on('createMessage', (msg)=>{
+        //send to each client  
+     io.emit('newMessage',generateMessage(msg.from,msg.text));//will send to all connected
+     // socket.broadcast.emit('newMessage',message);// broadcast will sent to all except itselt,sender
     });
 
-        socket.broadcast.emit('newMessage',{
-            from:'admin',
-            text:'A new User has joined the chat',
-            createdAt: new Date().getTime()
-        });
+        socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new User has the joined chat room.'));
+        
 
-        socket.emit('newMessage',{
-            from:'admin',
-            text:'Welcome to chat room',
-            createdAt: new Date().getTime()
-        });
+        socket.emit('newMessage',generateMessage('Admin', 'Welcome to the chat room (Admin).'));
 
     socket.on('disconnect', ()=> {
         console.log('client disconnected');
