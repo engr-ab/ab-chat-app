@@ -48,6 +48,7 @@ button{
 @media only screen and (max-width: 600px) {
     #messages{
         font-size: 20px;
+        padding: 30px;
         
     }
     input{
