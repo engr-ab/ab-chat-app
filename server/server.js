@@ -32,21 +32,27 @@ app.use(express.static(publicPath));
 //register an event, io.on allow us for this, special events are registered in io.on() while others are registered in the handler function of io.on('', handler);
 io.on('connection',(socket)=>{ //when connection event occur, do something
     console.log('New user connected');
-      
-    socket.on('createMessage', (msg)=>{
+
+     //send to all other 
+     socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new User has the joined chat room.'));
+     
+    //send to current client
+     //emitter
+     socket.emit('newMessage',generateMessage('Admin', 'Welcome to the chat room (Admin).'));
+     
+     //listener 
+    socket.on('createMessage', (msg, callback) =>{
         //send to each client  
      io.emit('newMessage',generateMessage(msg.from,msg.text));//will send to all connected
      // socket.broadcast.emit('newMessage',message);// broadcast will sent to all except itselt,sender
+     callback('I am server(Acknowledgement), I got your request; all is ok');
     });
-
-        socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new User has the joined chat room.'));
-        
-
-        socket.emit('newMessage',generateMessage('Admin', 'Welcome to the chat room (Admin).'));
+       
 
     socket.on('disconnect', ()=> {
         console.log('client disconnected');
     });
+
 
 });//io.on end
 

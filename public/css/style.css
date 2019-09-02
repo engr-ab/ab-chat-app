@@ -1,0 +1,41 @@
+#messages{
+    background:white;
+    text-align: left;
+    padding:30px;
+    padding-left: 60px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    list-style-type: none;
+}
+#messages>li{
+    margin-bottom: 10px;
+}
+h1{
+    text-align: center;
+}
+form{
+    margin:auto;
+    width:80vw;
+    text-align: center;
+}
+input{
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 10px;
+}
+#chat-window{
+    padding:30px;
+    background-color: teal;
+}
+button{
+    color: white;
+    background-color: black;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 25px;
+    width:200px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
