@@ -4,7 +4,6 @@ console.log('We are connected to the server.');
 
  //emit create message  when server is connected
  var form =document.getElementById('message-form');
-
  form.addEventListener('submit',function(e){
     e.preventDefault();
     var message = document.getElementById('message-input').value.trim();
