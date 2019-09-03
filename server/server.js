@@ -5,7 +5,7 @@ const socketIO = require('socket.io');
 //1.integrate socket io in webserver
 
 var messages = require('./utils/messages');
-var {generateMessage} = messages;
+var {generateMessage, generateLocationMessage} = messages;
 
 
 const publicPath = path.join(__dirname,'../public');
@@ -46,8 +46,11 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
      io.emit('newMessage',generateMessage(msg.from,msg.text));//will send to all connected
      // socket.broadcast.emit('newMessage',message);// broadcast will sent to all except itselt,sender
      callback('I am server(Acknowledgement), I got your request; all is ok');
-    });
-       
+    });//createMssage end
+
+    socket.on('createLocationMessage', (coords)=>{
+        io.emit('newLocationMessage',generateLocationMessage('admin', coords.latitude, coords.longitude));
+    });   
 
     socket.on('disconnect', ()=> {
         console.log('client disconnected');

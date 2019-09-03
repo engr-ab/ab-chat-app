@@ -15,6 +15,22 @@ console.log('We are connected to the server.');
     form.reset();
     });//form submit event listener end
 
+    //send location
+    var locationBtn = document.getElementById('send-location');
+    locationBtn.addEventListener('click',function(){
+        if(!navigator.geolocation){
+            return alert('Browser do not support Geo location ')
+        }
+
+        navigator.geolocation.getCurrentPosition(function(position){
+            socket.emit('createLocationMessage',{
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            });
+        },function(){
+            alert('Unable to fetch location');
+        });
+    });
 });//connect event end
 
 
@@ -26,6 +42,18 @@ socket.on('newMessage',function(message){
 
 });
 
+socket.on('newLocationMessage', function(location){
+    var ol = document.getElementById('messages');
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.setAttribute('href', location.url);
+    a.setAttribute('target','_blank');
+    a.innerHTML='My Current Location';
+    li.innerHTML =  `<span style='color:blue'>${location.from}: </span>`;
+    // a.style.textDecoration='none';
+    li.append(a);
+    ol.append(li);
+});
 
 socket.on('disconnect', function() {
     console.log('disconnected from server');
