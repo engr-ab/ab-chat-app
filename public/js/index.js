@@ -46,21 +46,23 @@ console.log('We are connected to the server.');
 
 
 socket.on('newMessage',function(message){
+    var formatedTime = moment(message.createdAt).format('h:mm a');
  var li = document.createElement('li');
- li.innerHTML = `<span style='color:blue'>${message.from}:</span> ${message.text}`;
+ li.innerHTML = `<span style='color:blue'>${message.from} ${formatedTime}:</span> ${message.text}`;
  var ol= document.getElementById('messages');
  ol.append(li);
 
 });
 
 socket.on('newLocationMessage', function(location){
+    var formatedTime = moment(location.createdAt).format('h:mm a');
     var ol = document.getElementById('messages');
     var li = document.createElement('li');
     var a = document.createElement('a');
     a.setAttribute('href', location.url);
     a.setAttribute('target','_blank');
     a.innerHTML='My Current Location';
-    li.innerHTML =  `<span style='color:blue'>${location.from}: </span>`;
+    li.innerHTML =  `<span style='color:blue'>${location.from} ${formatedTime}: </span>`;
     // a.style.textDecoration='none';
     li.append(a);
     ol.append(li);
