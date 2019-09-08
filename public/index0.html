@@ -4,29 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style0.css">
     <title>Chat App</title>
 </head>
-<body class='chat'>
-    <div class="chat__sidebar">
-        <h3>People</h3>
-        <div class="users"></div>
+<body>
+    <h1>welcome to AR-chat app</h1>
+   <div id="chat-window">
+       <div class="messages">
+           <ol id="messages">
 
-    </div>
-    <div class="chat__main">
-            <ol id="messages" class="chat__messages"></ol>
-            <div class="chat__footer">
-                    <form id="message-form">
-                            <input type="text" name="message" id="message-input" placeholder="Message" autofocus autocomplete="off"> <br>
-                            <button type="submit">Send</button>
-                        </form>
-                    <button id="send-location">Send location</button>
-            </div>     
-    </div>
-    
-    
-   
-
+           </ol>
+       </div>
+        <form id="message-form">
+                <input type="text" name="message" id="message-input"> <br>
+                <button type="submit">Send</button>
+            </form>
+<button id="send-location">Send location</button>
+   </div>
+</body>
 
 <script src="/socket.io/socket.io.js">
 //above file path is relative server
@@ -34,6 +29,4 @@
 //setting a socketIO server we have following cool things 1. acceess to a route that accepts incoming connections 2.we have access to a javascript library that makes woking easy with socket io on client we need this library(http://localhost:3000/socket.io/socket.io.js) on client to make connections and transfer data, we have loaded this library already
 </script>
 <script src="/js/index.js"></script>
-
-</body>
 </html>

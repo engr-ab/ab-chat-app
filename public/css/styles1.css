@@ -1,0 +1,61 @@
+
+.container{
+   
+}
+.sidebar{
+    height: 100%;
+    width:30%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #468499;
+    color: white;
+    overflow-x: hidden;
+    padding-top: 20px;
+    text-align: center;
+}
+.main{
+    width: 70%;
+ margin-left:30%; 
+ background-color:white;
+ height: 100%;
+ position:fixed;
+ top: 0;
+ left: 0;
+ 
+}
+.footer{
+   
+    position: fixed;
+    bottom:0;
+    background-color: whitesmoke;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+/* display: grid;
+grid-template-columns: 2fr 2fr ;
+grid-column-gap: 20px; */
+display:flex;
+}
+.footer-item-1{
+ 
+}
+.footer-item-2{
+    
+}
+#message-form{
+    display:flex;
+}
+
+#message-input{
+    width:40em;
+    padding: 10px;
+}
+#message-form>button{
+    width:8em;  padding: 10px; margin: 0px 10px;
+}
+#send-location{
+    width:8em;  padding: 10px;
+}
+

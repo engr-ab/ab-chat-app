@@ -33,7 +33,7 @@ app.use(express.static(publicPath));
 io.on('connection',(socket)=>{ //when connection event occur, do something
     console.log('New user connected');
 
-     //send to all other 
+     //send to all other except  current user(me)
      socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new User has the joined chat room.'));
      
     //send to current client

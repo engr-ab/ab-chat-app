@@ -10,18 +10,25 @@ console.log('We are connected to the server.');
     
     socket.emit('createMessage',{from:'user', text:message} ,function(acknowledgment){
         console.log('Acknowledgement:', acknowledgment);
+     
     });
-    //reset form
-    form.reset();
+      //reset form
+      form.reset();
     });//form submit event listener end
 
     //send location
     var locationBtn = document.getElementById('send-location');
     locationBtn.addEventListener('click',function(){
+       
         if(!navigator.geolocation){
             return alert('Browser do not support Geo location ')
         }
+        //first disable th button
+        locationBtn.setAttribute('disabled','disabled');
+        locationBtn.textContent ='Sending loc...';
+        
 
+        //navigator.geolocation.getCurrentPosition(success call back, error callback)
         navigator.geolocation.getCurrentPosition(function(position){
             socket.emit('createLocationMessage',{
                 latitude: position.coords.latitude,
@@ -29,8 +36,12 @@ console.log('We are connected to the server.');
             });
         },function(){
             alert('Unable to fetch location');
+
+            //enable button if cannot fetch location
+            locationBtn.removeAttribute('disabled');
+            locationBtn.textContent ='Send location';
         });
-    });
+    });//click event listener end
 });//connect event end
 
 
@@ -53,6 +64,10 @@ socket.on('newLocationMessage', function(location){
     // a.style.textDecoration='none';
     li.append(a);
     ol.append(li);
+
+    //enable button after sending location link
+    document.getElementById('send-location').removeAttribute('disabled');
+    document.getElementById('send-location').textContent ='Send location';
 });
 
 socket.on('disconnect', function() {
