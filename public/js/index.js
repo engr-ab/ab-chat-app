@@ -1,4 +1,24 @@
 var socket = io(); // by calling this method we are initiating a request, from client to server to open a web socket and keep connection alive
+
+//scroll to bottom
+function scrollToBottom (){
+    //selecrors 
+    var messages = $('#messages');
+    var newMessage = messages.children('li:last-child');
+    var lastMessage = newMessage.prev();
+    //heights
+    var scrollHeight = messages.prop('scrollHeight');
+    var clientHeight = messages.prop('clientHeight');
+    var scrollTop = messages.prop('scrollTop');
+    var newMessageHeight = newMessage.innerHeight();
+    var lastMessageHeight = lastMessage.innerHeight();
+    
+    if(clientHeight + scrollTop +newMessageHeight + lastMessageHeight >= scrollHeight ){
+        messages.scrollTop(scrollHeight);
+        
+    } 
+}
+
 socket.on('connect', function(){
 console.log('We are connected to the server.');
 
@@ -55,7 +75,7 @@ socket.on('newMessage',function(message){
     // document.querySelector('#messages').append(html); 
     //above append is not same as $('#messages').append(html);
  $('#messages').append(html);
-
+ scrollToBottom();
 });
 
 socket.on('newLocationMessage', function(location){
@@ -70,10 +90,10 @@ socket.on('newLocationMessage', function(location){
         });
 
     $('#messages').append(html);    
-
     //enable button after sending location link
     document.getElementById('send-location').removeAttribute('disabled');
     document.getElementById('send-location').textContent ='Send location';
+    scrollToBottom();
 });
 
 socket.on('disconnect', function() {
