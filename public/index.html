@@ -23,7 +23,31 @@
                     <button id="send-location">Send location</button>
             </div>     
     </div>
+
+    <!-- mustache template ,inline style is added myself(ab) -->
+    <script id="message-template" type="text/template">
+    <li class="message" style="background-color:#f5f5f5; padding:15px; margin:10px; border-radius:15px; float: left;  clear: left; ">
+        <div class="message__title">
+            <h4 style='color:blue'>{{message.from}}</h4>
+            <span style='color:blue'>{{message.createdAt}}</span>
+        </div>
+        <div class="message__body" >
+            <p style="font-size;" >{{message.text}}</p>
+        </div>
+    </li>
+    </script>
     
+    <script id="location-message-template" type="text/template">
+        <li class="message" style="background-color:#f5f5f5; padding:15px; margin:10px; border-radius:15px; float: left;  clear: left; ">
+            <div class="message__title">
+                <h4 style='color:blue'>{{from}}</h4>
+                <span style='color:blue'>{{createdAt}}</span>
+            </div>
+            <div class="message__body" >
+                <a href="{{url}}" target="_blank">My current location</a>
+            </div>
+        </li>
+        </script>
     
    
 
@@ -33,7 +57,9 @@
 
 //setting a socketIO server we have following cool things 1. acceess to a route that accepts incoming connections 2.we have access to a javascript library that makes woking easy with socket io on client we need this library(http://localhost:3000/socket.io/socket.io.js) on client to make connections and transfer data, we have loaded this library already
 </script>
+<script src="js/libs/jquery-3.4.1.min.js"></script>
 <script src="js/libs/moment.js"></script>
+<script src="js/libs/mustache.js"></script>
 <script src="js/index.js"></script>
 
 </body>

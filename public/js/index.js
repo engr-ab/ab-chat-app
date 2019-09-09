@@ -47,25 +47,29 @@ console.log('We are connected to the server.');
 
 socket.on('newMessage',function(message){
     var formatedTime = moment(message.createdAt).format('h:mm a');
- var li = document.createElement('li');
- li.innerHTML = `<span style='color:blue'>${message.from} ${formatedTime}:</span> ${message.text}`;
- var ol= document.getElementById('messages');
- ol.append(li);
+    //update timestamp with formated time
+    message.createdAt = formatedTime;
+
+    var template = jQuery('#message-template').html();
+    var html = Mustache.render(template,{message});
+    // document.querySelector('#messages').append(html); 
+    //above append is not same as $('#messages').append(html);
+ $('#messages').append(html);
 
 });
 
 socket.on('newLocationMessage', function(location){
-    var formatedTime = moment(location.createdAt).format('h:mm a');
-    var ol = document.getElementById('messages');
-    var li = document.createElement('li');
-    var a = document.createElement('a');
-    a.setAttribute('href', location.url);
-    a.setAttribute('target','_blank');
-    a.innerHTML='My Current Location';
-    li.innerHTML =  `<span style='color:blue'>${location.from} ${formatedTime}: </span>`;
-    // a.style.textDecoration='none';
-    li.append(a);
-    ol.append(li);
+    var createdAt = moment(location.createdAt).format('h:mm a');
+    var template = $('#location-message-template').html();
+    
+    var html = Mustache.render(template, 
+        {
+            from: location.from,
+            createdAt: createdAt,
+            url: location.url
+        });
+
+    $('#messages').append(html);    
 
     //enable button after sending location link
     document.getElementById('send-location').removeAttribute('disabled');
