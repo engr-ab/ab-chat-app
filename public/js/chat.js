@@ -1,3 +1,4 @@
+//links.mead.io/dparam  is library to get url parameter's string as a object. and vice versa
 var socket = io(); // by calling this method we are initiating a request, from client to server to open a web socket and keep connection alive
 
 //scroll to bottom
@@ -20,7 +21,26 @@ function scrollToBottom (){
 }
 
 socket.on('connect', function(){
-console.log('We are connected to the server.');
+//after connecting start process of joining the chat room
+var params = jQuery.deparam(window.location.search); //jQuery==$, dparam takes arguments string and return object
+socket.emit('join',params,function(err){
+    if(err){
+        alert(err);
+        window.location.href = '/';
+    }else{
+        console.log('No error!');
+    }
+});
+
+//get updated users list
+socket.on('updateUsersList',function(users){
+    var ol = $('<ol></ol>');
+
+    users.forEach((user)=>{
+        ol.append($('<li></li>').text(user));
+    });
+    $('#users').html(ol);
+});
 
  //emit create message  when server is connected
  var form =document.getElementById('message-form');
