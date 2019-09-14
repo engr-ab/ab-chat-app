@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidenav.css">
     <title>Chat | ChatApp</title>
 </head>
 <body class='chat'>
@@ -14,7 +15,16 @@
 
     </div>
     <div class="chat__main">
-            <div id="roomName"></div>
+            <div id="roomName">
+                <!-- sideavn -->
+                <div id="mySidenav" class="sidenav">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <a href="#">About</a>
+                        <a href="#">Services</a>
+                      </div>
+                      <button onclick="openNav()">people</button>
+                      <!-- &#9776; hamburg button code -->
+            </div>
             <ol id="messages" class="chat__messages"></ol>
             <div class="chat__footer">
                     <form id="message-form">
@@ -64,6 +74,7 @@
 <script src="js/libs/mustache.js"></script>
 <script src="js/libs/deparam.js"></script>
 <script src="js/chat.js"></script>
+<script src="js/libs/sidenav.js"></script>
 
 </body>
 </html>

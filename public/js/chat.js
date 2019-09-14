@@ -89,7 +89,7 @@ socket.on('newMessage',function(message,textColor){
     //ab addedd 
     socket.on('setRoomName',function(room){
         var roomName = $('#roomName');
-        roomName.html('Chat Room: '+room);
+        // roomName.html(room);
         roomName.css({
             'background-color' : 'teal',
             'color' : 'white',
