@@ -173,10 +173,7 @@
   }
   
   @media (max-width: 600px) {
-    body{
-      height: 100vh;
-      width: 100vw;
-    }
+    
     * {
       font-size: 1rem;
     }
@@ -195,5 +192,9 @@
   
     .chat__footer button {
       margin-right: 10px;
+    }
+    /* ab  added */
+    .chat__messages{
+      max-height:50%;
     }
   }
