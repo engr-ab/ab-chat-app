@@ -89,20 +89,24 @@ socket.on('newMessage',function(message,textColor){
     //ab addedd 
     socket.on('setRoomName',function(room){
         var roomName = $('#roomName');
-        roomName.html('You are in chat room: '+room);
+        roomName.html('Chat Room: '+room);
         roomName.css({
             'background-color' : 'teal',
             'color' : 'white',
-            'text-align' : 'center',
+            'text-align' : 'left',
             'padding' : '10px',
+            'padding-left': '20px',
             'font-size': '2rem'
             
         });
 
         var btn = $('<button id="leaveRoom">Leave Room</button>');
         btn.css({
+            'background' : 'white',
+            'color': 'teal',
             'float': 'right',
             'clear': 'right',
+            'border-radius': '5px'
         });
         //leave room event listener
          
