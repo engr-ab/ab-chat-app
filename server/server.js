@@ -6,7 +6,7 @@ const socketIO = require('socket.io');
 
 var messages = require('./utils/messages');
 var {generateMessage, generateLocationMessage} = messages;
-var {isRealString} = require('./utils/validators');
+var {isRealString, isUniqueUserName} = require('./utils/validators');
 var {Users} = require('./utils/users');
 
 
@@ -41,7 +41,10 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
      socket.on('join',(params, callback)=>{ 
         if(!isRealString(params.name) || !isRealString(params.room)){
            return callback('Please provide following valid data\n\n*Username\n*Chat Room name');
-        }   
+        } 
+        if(!isUniqueUserName(params.name, users.users)){
+             return callback( `username: ${params.name} already exists.\n\n*Provide a unique username`);
+         }
 
             socket.join(params.room);
             //remove from previous room before adding to new room
@@ -51,9 +54,9 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
             
             io.to(params.room).emit('updateUsersList', updatedList);
     
-            socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`));
+            socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`,),'green');
             socket.emit('newMessage',generateMessage('Admin', `Welcome ${params.name}`));
-            
+            socket.emit('setRoomName',params.room);
             callback();
             //socket.leave('room name')
             //io.emit() -> io.to(room).emit()
@@ -63,25 +66,24 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
             
     });//join event ends
 
-    //  //send to all other except  current user(me)
-    //  socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new User has the joined chat room.'));
-     
-    // //send to current client
-    //  //emitter
-    //  socket.emit('newMessage',generateMessage('Admin', 'Hello! Welcome to chatroom. Please follow the rules and regulations'));
-
-    
-     
      //listener 
     socket.on('createMessage', (msg, callback) =>{
+        var user = users.getUser(socket.id);
+        if(user && isRealString(msg.text)){
+            io.to(user.room).emit('newMessage',generateMessage(user.name,msg.text));//will send to all connected
+        }
         //send to each client  
-     io.emit('newMessage',generateMessage(msg.from,msg.text));//will send to all connected
+     
      // socket.broadcast.emit('newMessage',message);// broadcast will sent to all except itselt,sender
      callback('I am server(Acknowledgement), I got your request; all is ok');
     });//createMssage end
 
     socket.on('createLocationMessage', (coords)=>{
-        io.emit('newLocationMessage',generateLocationMessage('admin', coords.latitude, coords.longitude));
+        var user = users.getUser(socket.id);
+        if(user){
+            io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name, coords.latitude, coords.longitude));
+        }
+        
     });   
 
     socket.on('disconnect', ()=> {
@@ -89,7 +91,7 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
         var user = users.removeUser(socket.id);
         if(user){
             io.to(user.room).emit('updateUsersList', users.getUsersList(user.room));
-            io.to(user.room).emit('newMessage',generateMessage('Admin',`${user.name} has left.`)); 
+            io.to(user.room).emit('newMessage',generateMessage('Admin',`${user.name} has left.`),'red'); 
         }
         
     });

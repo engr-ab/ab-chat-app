@@ -48,7 +48,7 @@ socket.on('updateUsersList',function(users){
     e.preventDefault();
     var message = document.getElementById('message-input').value.trim();
     
-    socket.emit('createMessage',{from:'user', text:message} ,function(acknowledgment){
+    socket.emit('createMessage',{text:message} ,function(acknowledgment){
         console.log('Acknowledgement:', acknowledgment);
      
     });
@@ -85,13 +85,26 @@ socket.on('updateUsersList',function(users){
 });//connect event end
 
 
-socket.on('newMessage',function(message){
+socket.on('newMessage',function(message,textColor){
+    socket.on('setRoomName',function(room){
+        var roomName = $('#roomName');
+        roomName.html('You are in chat room: '+room);
+        roomName.css({
+            'background-color' : 'black',
+            'color' : 'white',
+            'text-align' : 'center',
+            'padding' : '10px',
+            'font-size': '30px'
+            
+        })
+    });
+
     var formatedTime = moment(message.createdAt).format('h:mm a');
     //update timestamp with formated time
     message.createdAt = formatedTime;
 
     var template = jQuery('#message-template').html();
-    var html = Mustache.render(template,{message});
+    var html = Mustache.render(template,{message,textColor});
     // document.querySelector('#messages').append(html); 
     //above append is not same as $('#messages').append(html);
  $('#messages').append(html);
