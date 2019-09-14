@@ -86,6 +86,7 @@ socket.on('updateUsersList',function(users){
 
 
 socket.on('newMessage',function(message,textColor){
+    //ab addedd 
     socket.on('setRoomName',function(room){
         var roomName = $('#roomName');
         roomName.html('You are in chat room: '+room);
@@ -96,8 +97,25 @@ socket.on('newMessage',function(message,textColor){
             'padding' : '10px',
             'font-size': '30px'
             
-        })
+        });
+
+        var btn = $('<button id="leaveRoom">Leave Room</button>');
+        btn.css({
+            'float': 'right',
+            'clear': 'right',
+        });
+        //leave room event listener
+         
+        roomName.append(btn);
+        btn.click(function(e){
+            socket.emit('leaveRoom',function(){
+                alert('You are out of room');
+                window.location.href = '/';
+            });
+        });
+        
     });
+
 
     var formatedTime = moment(message.createdAt).format('h:mm a');
     //update timestamp with formated time
@@ -128,6 +146,8 @@ socket.on('newLocationMessage', function(location){
     document.getElementById('send-location').textContent ='Send location';
     scrollToBottom();
 });
+
+
 
 socket.on('disconnect', function() {
     console.log('disconnected from server');

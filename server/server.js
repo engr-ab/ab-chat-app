@@ -56,7 +56,9 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
     
             socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`,),'green');
             socket.emit('newMessage',generateMessage('Admin', `Welcome ${params.name}`));
+           //added by ab
             socket.emit('setRoomName',params.room);
+
             callback();
             //socket.leave('room name')
             //io.emit() -> io.to(room).emit()
@@ -95,7 +97,16 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
         }
         
     });
-
+//ab added leaveRoom
+    socket.on('leaveRoom',(callback)=>{
+        var user = users.removeUser(socket.id);
+        if(user){
+            io.to(user.room).emit('updateUsersList', users.getUsersList(user.room));
+            io.to(user.room).emit('newMessage',generateMessage('Admin',`${user.name} has left.`),'red'); 
+        }
+         socket.leave(user.room);
+         callback();
+    });
 
 });//io.on end
 
