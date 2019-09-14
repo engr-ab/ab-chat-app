@@ -91,11 +91,11 @@ socket.on('newMessage',function(message,textColor){
         var roomName = $('#roomName');
         roomName.html('You are in chat room: '+room);
         roomName.css({
-            'background-color' : 'black',
+            'background-color' : 'teal',
             'color' : 'white',
             'text-align' : 'center',
             'padding' : '10px',
-            'font-size': '30px'
+            'font-size': '2rem'
             
         });
 
