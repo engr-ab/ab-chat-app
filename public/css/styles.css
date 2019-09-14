@@ -195,6 +195,6 @@
     }
     /* ab  added */
     .chat__messages{
-      max-height:50%;
+      max-height:90%;
     }
   }
