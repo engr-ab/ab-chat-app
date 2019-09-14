@@ -96,7 +96,6 @@ socket.on('newMessage',function(message,textColor){
             'text-align' : 'left',
             'padding' : '10px',
             'padding-left': '20px',
-            'font-size': '2rem'
             
         });
 
