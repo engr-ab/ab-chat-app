@@ -186,10 +186,10 @@
     }
   
     .chat__footer form {
-      margin-bottom: 100px;
+      margin-bottom: 10px;
     }
   
     .chat__footer button {
-      margin-right: 0px;
+      margin-right: 10px;
     }
   }
