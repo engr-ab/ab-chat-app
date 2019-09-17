@@ -21,6 +21,7 @@ function scrollToBottom (){
 }
 
 socket.on('connect', function(){
+    
 //after connecting start process of joining the chat room
 var params = jQuery.deparam(window.location.search); //jQuery==$, dparam takes arguments string and return object
 socket.emit('join',params,function(err){

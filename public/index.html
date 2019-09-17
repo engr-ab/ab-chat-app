@@ -18,8 +18,16 @@
                 <input type="text" name="name" id="" autofocus  autocomplete="off"/>
             </div>
             <div class="form-field">
-                <label for="RoomName">Room Name</label>
+                <label for="RoomName">Create new Room </label>
                 <input type="text" name="room" id=""  autocomplete="off" />
+            </div>
+            <hr>
+            <div class="form-field" style="text-align: center;">
+                <label for="RoomName">OR</label>
+            </div>
+            <div class="form-field">
+                <label for="RoomName">Join from Existing Room(s)</label>
+                <select name="existingRoom" id=""></select>
             </div>
             <div class="form-field">
                 <button type="submit">Join</button>
@@ -27,5 +35,31 @@
         </form>
     </div>
     
+    <script src="/socket.io/socket.io.js">
+        //above file path is relative server
+        
+        //setting a socketIO server we have following cool things 1. acceess to a route that accepts incoming connections 2.we have access to a javascript library that makes woking easy with socket io on client we need this library(http://localhost:3000/socket.io/socket.io.js) on client to make connections and transfer data, we have loaded this library already
+        </script>
+        <script src="js/libs/jquery-3.4.1.min.js"></script>
+ 
+        <script src="js/libs/deparam.js"></script>
+<script>
+var socket = io();
+socket.on('connect', function(){
+    
+    socket.emit('getRooms',function(users){
+        users.forEach(user => {
+           var option= $('<option value="'+user+'">'+user+'<option>');
+            $('[name=existingRoom]').append(option);
+        });
+        
+    });
+});
+
+socket.on('disconnect', function() {
+    console.log('disconnected from server');
+    
+});
+</script>
 </body>
 </html>

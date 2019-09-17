@@ -36,6 +36,14 @@ getUsersList(room){
     return namesArray;
 }
 
+getRooms(){
+    //return array 
+    
+    var roomsArray = this.users.map((user)=>user.room);
+
+    return roomsArray;
+}
+
 
 }//class end
 

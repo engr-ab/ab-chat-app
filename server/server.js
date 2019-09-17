@@ -37,8 +37,15 @@ app.use(express.static(publicPath));
 io.on('connection',(socket)=>{ //when connection event occur, do something
     console.log('New user connected');
     
+    socket.on('getRooms',(callback)=>{
+        callback( users.getRooms());
+    });
+    
      //check url param: name and room name
      socket.on('join',(params, callback)=>{ 
+         if(params.room==""){
+           params.room=params.existingRoom;
+         }
         if(!isRealString(params.name) || !isRealString(params.room)){
            return callback('Please provide following valid data\n\n*Username\n*Chat Room name');
         } 
