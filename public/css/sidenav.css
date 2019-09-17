@@ -1,17 +1,45 @@
+#sidenavDiv{
+  display:none;
+}
+#sidenavBtn{
+  display:none;
+}
 
 .sidenav {
+    
     height: 100%;
     width: 0;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background:  rgba(39,107,130,.8);
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 30px;
   }
   
+
+  #sidenavPeopleDiv h3 {
+    color: #e6eaee;
+    margin: 10px 20px;
+    text-align: left;
+  }
+  
+  #sidenavPeopleDiv ul {
+    list-style-type: none;
+  }
+  
+  #sidenavPeopleDiv li {
+    background: #e6eaee;
+    color:black;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+  }
+ 
+
   .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -21,9 +49,9 @@
     transition: 0.3s;
   }
   
-  .sidenav a:hover {
+   .sidenav a:hover {
     color: #f1f1f1;
-  }
+  } 
   
   .sidenav .closebtn {
     position: absolute;
@@ -33,8 +61,19 @@
     margin-left: 50px;
   }
   
+  @media screen and (max-width: 600px) {
+    #sidenavDiv{
+      display:block;
+    }
+    #sidenavBtn{
+      display:block;
+    }
+  }
+ 
+
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+ 
   

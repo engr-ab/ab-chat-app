@@ -35,11 +35,15 @@ socket.emit('join',params,function(err){
 //get updated users list
 socket.on('updateUsersList',function(users){
     var ol = $('<ol></ol>');
+    var ol1 = $('<ol></ol>');
+
 
     users.forEach((user)=>{
         ol.append($('<li></li>').text(user));
+        ol1.append($('<li></li>').text(user));
     });
     $('#users').html(ol);
+     $('#sidenavPeopleDiv').html(ol1);
 });
 
  //emit create message  when server is connected

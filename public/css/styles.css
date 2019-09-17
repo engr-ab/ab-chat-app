@@ -6,7 +6,12 @@
     font-weight: 300;
     font-size: .95rem;
   }
-  
+
+   /* ab added */
+#roomName{
+  font-size: 2rem;
+}
+  /* /////////////////////////// */
   ul, li {
     list-style-position: inside;
   }
@@ -172,10 +177,7 @@
     color: #999;
   }
   
-  /* ab added */
-#roomName{
-  font-size: 2rem;
-}
+ 
 
   @media (max-width: 600px) {
     
