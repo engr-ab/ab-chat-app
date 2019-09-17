@@ -88,42 +88,22 @@ socket.on('updateUsersList',function(users){
     });//click event listener end
 });//connect event end
 
+   //ab addedd 
+   socket.on('setRoomName',function(room){
+    var roomName = $('#roomName');
+    roomName.text(room);
+});
+
+ //leave room event listener
+ var btn = $('#btn-leave');
+ btn.click(function(e){
+    socket.emit('leaveRoom',function(){
+        alert('You are leaving room.');
+        window.location.href = '/';
+    });
+});
 
 socket.on('newMessage',function(message,textColor){
-    //ab addedd 
-    socket.on('setRoomName',function(room){
-        var roomName = $('#roomName');
-        // roomName.html(room);
-        roomName.css({
-            'background-color' : 'teal',
-            'color' : 'white',
-            'text-align' : 'left',
-            'padding' : '10px',
-            'padding-left': '20px',
-            
-        });
-
-        var btn = $('<button id="leaveRoom">Leave Room</button>');
-        btn.css({
-            'background' : 'white',
-            'color': 'teal',
-            'float': 'right',
-            'clear': 'right',
-            'border-radius': '5px'
-        });
-        //leave room event listener
-         
-        roomName.append(btn);
-        btn.click(function(e){
-            socket.emit('leaveRoom',function(){
-                alert('You are out of room');
-                window.location.href = '/';
-            });
-        });
-        
-    });
-
-
     var formatedTime = moment(message.createdAt).format('h:mm a');
     //update timestamp with formated time
     message.createdAt = formatedTime;

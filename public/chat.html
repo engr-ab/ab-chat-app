@@ -15,16 +15,28 @@
 
     </div>
     <div class="chat__main">
-            <div id="roomName">
-                <!-- sideavn -->
-                <div id="sidenavDiv" class="sidenav">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                          <h3>People</h3>
-                        <div id="sidenavPeopleDiv" class=""></div>
-                </div>
-                      <button id="sidenavBtn"  onclick="openNav()">people</button>
+            <div class="header">
+            
+                       <div style="">
+                           <p id="roomName"></p>
+                       </div>
+                       
+                           <div class="header-btns" style=" text-align: right;">
+                               <button id="sidenavBtn" >People</button>
+                               <button id="btn-leave" style="background-color: rgba(153, 12, 7, 0.849); ">Leave room</button>
+                           </div>
+                       
+               
+                            
                       <!-- &#9776; hamburg button code -->
+                       <!-- sideavn -->
+                <div id="sidenavDiv" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                      <h3>People</h3>
+                    <div id="sidenavPeopleDiv" class=""></div>
             </div>
+            </div>
+
             <ol id="messages" class="chat__messages"></ol>
             <div class="chat__footer">
                     <form id="message-form">

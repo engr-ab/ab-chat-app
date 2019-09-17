@@ -7,10 +7,7 @@
     font-size: .95rem;
   }
 
-   /* ab added */
-#roomName{
-  font-size: 2rem;
-}
+
   /* /////////////////////////// */
   ul, li {
     list-style-position: inside;
@@ -176,9 +173,20 @@
   .message__title span {
     color: #999;
   }
-  
+  .header{
+    background:teal;
+    color: white;
+    padding: 5px;
+  }
+  .header p{
+    text-align:center;
+    font-size: 2rem;
+  }
+  .header-btns{
+    /* margin: 5px; */
+  } 
  
-
+/* ////////////////////////////////////////////.///////////////////////////////////////// */
   @media (max-width: 600px) {
     
     * {
@@ -204,7 +212,5 @@
     /* .chat__messages{
       
     } */
-    #roomName{
-      font-size:1.5rem;
-    }
+    
   }
