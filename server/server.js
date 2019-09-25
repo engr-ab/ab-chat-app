@@ -38,7 +38,8 @@ io.on('connection',(socket)=>{ //when connection event occur, do something
     console.log('New user connected');
     
     socket.on('getRooms',(callback)=>{
-        callback( users.getRooms());
+         io.emit('updateRooms', users.getRooms());
+        
     });
     
      //check url param: name and room name

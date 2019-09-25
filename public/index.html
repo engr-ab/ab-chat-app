@@ -47,11 +47,19 @@
 var socket = io();
 socket.on('connect', function(){
     
-    socket.emit('getRooms',function(users){
-        users.forEach(user => {
-           var option= $('<option value="'+user+'">'+user+'<option>');
-            $('[name=existingRoom]').append(option);
+    socket.emit('getRooms',function(response){
+        
+    });
+
+    socket.on('updateRooms', function(users){
+        let select = document.getElementsByName('existingRoom')[0];
+        select.innerHTML = '';
+        users.forEach(user => { 
+            let option = document.createElement('option');
+            option.text=user.trim(); option.value= user.trim();
+             select.add(option);
         });
+        
         
     });
 });
